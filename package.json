@@ -1,0 +1,27 @@
+{
+  "name": "one-trader-model-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vee1807/one-trader-model-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vee1807/one-trader-model-node/issues"
+  },
+  "homepage": "https://github.com/Vee1807/one-trader-model-node#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "yahoo-finance": "^0.3.8"
+  }
+}

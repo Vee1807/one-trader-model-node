@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Trader Model</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Garamond">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <nav>
+        <h1>ONE-TRADER MODEL</h1>
+    </nav>
+    <div class="container">
+        <form id="query-container" method="POST" action="/api">
+            <input type="text" id="symbol-input" class="query-input" autocomplete="off" placeholder="Symbol" required name="symbol">
+            <input type="text" id="date-input" class="query-input" autocomplete="off" placeholder="from: yy-mm-dd" required name="from">
+            <input type="text" id="date-input" class="query-input" autocomplete="off" placeholder="to: yy-mm-dd" required name="to">
+            <input type="number" id="float-input" class="query-input" autocomplete="off" placeholder="float" required name="float">
+            <button type="submit" id="submit">Calculate</button>
+        </form>
+    </div>
+    <div class="output">
+        <h1 id="total"></h1>
+        <div id="table-container">
+        </div>       
+    </div>
+    
+
+</body>
