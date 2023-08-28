@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EJS</title>
+</head>
+
+<body>
+	testing
+	<div class="output">
+        <h1 id="total"></h1>
+        <div id="table-container">
+        </div>       
+    </div>
+</body>
+
+</html>
+<script>
+	let data = '<%- dataArr %>';
+	console.log(data)
+	let data_obj = JSON.parse(data);
+
+	let floatStr = '<%- floatValue %>';
+	let floatValue = Number(floatStr);
+
+	// Model
+	function model(data_obj, floatValue) {
+		let j = 12;
+		let row = [];
+		let table = [];
+		let nrow = data_obj.length;
+		let loopMax = nrow * 2 - 1;
+
+		// First 2 rows
+		row.push(-1 * data_obj[0].volume);
+		table.push(row);
+		row = [];
+		row.push(1 * table[0][0] + 1 * floatValue);
+		row.push(- 1 * table[0][0]);
+		table.push(row);
+
+
+		let colCount = 2;
+		let colCount3 = 1;
+		let index = 1;
+
+		// Loop through rows
+		for (let i = 1; i < loopMax; i++) {
+			colCount3 = 1;
+			row = [];
+			f = 0;
+
+			// Loop through columns
+			for (let l = 0; l < colCount; l++) {
+				if (i % 2 == 0) {
+					row.push(1 * table[i][l] + 1 * table[i - 1][l]);
+					f = 1;
+				} else {
+
+					row.push(- 1 * data_obj[index].volume * table[i][l] / floatValue);
+				}
+
+				colCount3++;
+			}
+
+			if (f == 1) {
+				row.push(1 * data_obj[index].volume)
+				colCount++;
+				j += 2;
+			}
+
+			table.push(row)
+
+			// Increment i every 2 loops
+			if (i % 2 == 0) {
+				index++;
+			}
+		}
+
+
+		// Second table
+		let prices = [];
+
+		// Convert xx.x% (String) to xx.x (Number)
+		//let changeStr = data_obj[nrow - 1]['%Chg'];
+		//changeStr = changeStr.slice(0, -1);
+		//let change = changeStr * 1
+
+		let change = (data_obj[nrow - 1].close - data_obj[nrow - 2].close) / data_obj[nrow - 2].close * 100;
+		change = change.toFixed(2)
+		
+		let finalValues = [];
+		let sum = 0
+		let sumLastRow = 0;
+		for (let i = 0; i < nrow; i++) {
+			prices.push(1 * data_obj[i].close);
+			finalValues.push(- 1 * prices[i] * table[table.length - 1][i + 1] * change / 100);
+			sumLastRow += table[table.length - 1][i + 1];
+			console.log('val ' + change)
+			// Calculate sum
+			sum += finalValues[i];
+		}
+		console.log(sum)
+		// Round sum
+		let displayedSum = Math.round(sum);
+		let displayedSum1 = Math.round(sumLastRow);
+
+		// Format sum to a readable string
+		const nFormat = new Intl.NumberFormat();
+		displayedSum = nFormat.format(displayedSum);
+		displayedSum1 = nFormat.format(displayedSum1);
+
+		// Display sum
+		let totalText = document.getElementById("total");
+		totalText.innerHTML = `<span style="color:#F03222; font-weight: 900;">Total1:</span><br>$ ${displayedSum1}<br>
+                            <span style="color:#F03222; font-weight: 900;">Total2:</span><br>$ ${displayedSum}`
+
+		console.log(change)
+		console.table(table)
+
+
+	}
+	model(data_obj, floatValue)
+	
+</script>

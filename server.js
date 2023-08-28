@@ -8,16 +8,18 @@ const yahooFinance = require('yahoo-finance');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-
+app.set("view engine", "ejs"); // for render
 
 app.post('/api', async (req, res) => {
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
+    let myFloat = req.body.float;
     let mySymbol = req.body.symbol;
     let startDate = req.body.from;
     let endDate = req.body.to;
     try {    
         let data = await getData(mySymbol, startDate, endDate);
-        res.send(data);
+        //res.send(data)
+        res.render("output", { dataArr: JSON.stringify(data), floatValue: myFloat });
     } catch(e) {
         // catch errors and send error status
         console.log(e);
