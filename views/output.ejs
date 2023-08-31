@@ -5,11 +5,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>EJS</title>
+	<title>Total</title>
 </head>
 
 <body>
-	testing
 	<div class="output">
         <h1 id="total"></h1>
         <div id="table-container">
@@ -20,7 +19,6 @@
 </html>
 <script>
 	let data = '<%- dataArr %>';
-	console.log(data)
 	let data_obj = JSON.parse(data);
 
 	let floatStr = '<%- floatValue %>';
@@ -103,7 +101,7 @@
 			// Calculate sum
 			sum += finalValues[i];
 		}
-		console.log(sum)
+
 		// Round sum
 		let displayedSum = Math.round(sum);
 		let displayedSum1 = Math.round(sumLastRow);
@@ -117,9 +115,6 @@
 		let totalText = document.getElementById("total");
 		totalText.innerHTML = `<span style="color:#F03222; font-weight: 900;">Total1:</span><br>$ ${displayedSum1}<br>
                             <span style="color:#F03222; font-weight: 900;">Total2:</span><br>$ ${displayedSum}`
-
-		console.log(change)
-		console.table(table)
 
 
 	}
